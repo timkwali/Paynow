@@ -39,6 +39,7 @@ object Utils {
             messageTv.text = message
 
             val dialog = builder.create()
+            dialog.setCancelable(false)
             dialog.show()
 
             yesTv.setOnClickListener {

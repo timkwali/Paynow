@@ -1,8 +1,10 @@
 package com.timkwali.paynow.common.util
 
+import com.timkwali.paynow.BuildConfig
+
 object Constants {
     const val BASE_URL = "https://api.paystack.co/"
-    const val SECRET_KEY = "sk_test_8b8dc8672f506187b3ff0a69cd59d95092ec4f1a"
+    const val SECRET_KEY = BuildConfig.SECRET_KEY
     const val NIGERIA_CURRENCY = "NGN"
     const val NIGERIA_MONEY_TYPE = "nuban"
     const val TRANSFER_SOURCE = "balance"

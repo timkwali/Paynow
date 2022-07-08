@@ -1,6 +1,7 @@
 package com.timkwali.paynow.transactions.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.timkwali.paynow.R
 import com.timkwali.paynow.common.util.Resource
@@ -39,7 +41,8 @@ class TransactionsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rvAdapter = TransactionsAdapter {
-            Toast.makeText(requireContext(), "gotonext screent", Toast.LENGTH_SHORT).show() }
+            Toast.makeText(requireContext(), "gotonext screent", Toast.LENGTH_SHORT).show()
+        }
 
         binding.apply {
             lifecycleScope.launchWhenStarted {
@@ -53,12 +56,17 @@ class TransactionsFragment : Fragment() {
                     }
                     it?.data?.let {
                         transactionsRv.isVisible = it.isNotEmpty()
+                        if(it.isEmpty()) {
+                            message.text = "There are no transactions at the moment"
+                            message.isVisible = true
+                        }
                         setUpRecyclerView(it)
                     }
                 }
             }
 
             retry.setOnClickListener { transactionViewModel.getTransactions() }
+            transactions.setOnClickListener { findNavController().popBackStack() }
         }
     }
 
