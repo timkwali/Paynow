@@ -2,6 +2,8 @@ package com.timkwali.paynow.common.di
 
 import com.timkwali.paynow.BuildConfig
 import com.timkwali.paynow.common.data.api.PayNowApi
+import com.timkwali.paynow.common.data.repository.PayNowRepositoryImpl
+import com.timkwali.paynow.common.domain.repository.PayNowRepository
 import com.timkwali.paynow.common.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -66,9 +68,9 @@ object NetworkModule {
         return retrofit.create(PayNowApi::class.java)
     }
 
-//    @Provides
-//    @Singleton
-//    fun providePayNowRepository(payNowApi: PayNowApi): PayNowRepository {
-//        return GroupsRepositoryImpl(groupsApi)
-//    }
+    @Provides
+    @Singleton
+    fun providePayNowRepository(payNowApi: PayNowApi): PayNowRepository {
+        return PayNowRepositoryImpl(payNowApi)
+    }
 }

@@ -10,4 +10,14 @@
         android:name="com.timkwali.paynow.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/transferFragment"
+        android:name="com.timkwali.paynow.transfer.presentation.TransferFragment"
+        android:label="fragment_transfer"
+        tools:layout="@layout/fragment_transfer" />
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.timkwali.paynow.transactions.TransactionsFragment"
+        android:label="fragment_transactions"
+        tools:layout="@layout/fragment_transactions" />
 </navigation>
