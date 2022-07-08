@@ -19,5 +19,18 @@
         android:id="@+id/transactionsFragment"
         android:name="com.timkwali.paynow.transactions.presentation.TransactionsFragment"
         android:label="fragment_transactions"
-        tools:layout="@layout/fragment_transactions" />
+        tools:layout="@layout/fragment_transactions" >
+        <action
+            android:id="@+id/action_transactionsFragment_to_transactionDetailsFragment"
+            app:destination="@id/transactionDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionDetailsFragment"
+        android:name="com.timkwali.paynow.transactions.presentation.TransactionDetailsFragment"
+        android:label="fragment_transaction_details"
+        tools:layout="@layout/fragment_transaction_details" >
+        <argument
+            android:name="Transaction"
+            app:argType="com.timkwali.paynow.transactions.domain.model.Transaction" />
+    </fragment>
 </navigation>

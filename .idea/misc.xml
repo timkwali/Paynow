@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_list_bottom_sheet.xml" value="0.14114583333333333" />
+        <entry key="app/src/main/res/layout/fragment_transaction_details.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_transactions.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_transfer.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/list_rv_item.xml" value="0.5043478260869565" />

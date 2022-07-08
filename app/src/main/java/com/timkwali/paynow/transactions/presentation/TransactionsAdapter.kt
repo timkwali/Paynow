@@ -10,7 +10,7 @@ import com.timkwali.paynow.R
 import com.timkwali.paynow.databinding.TransactionRvItemBinding
 import com.timkwali.paynow.transactions.domain.model.Transaction
 
-class TransactionsAdapter(val clickCallback: () -> Unit):
+class TransactionsAdapter(val clickCallback: (transaction: Transaction) -> Unit):
     ListAdapter<Transaction, TransactionsAdapter.TransactionsViewHolder>(TransactionDiffCallback) {
 
     inner class TransactionsViewHolder(private val binding: TransactionRvItemBinding): RecyclerView.ViewHolder(binding.root) {
@@ -20,7 +20,7 @@ class TransactionsAdapter(val clickCallback: () -> Unit):
                 amount.text = transaction.amount.toString()
                 date.text = transaction.createdAt
             }
-            binding.root.setOnClickListener { clickCallback() }
+            binding.root.setOnClickListener { clickCallback(transaction) }
         }
     }
 

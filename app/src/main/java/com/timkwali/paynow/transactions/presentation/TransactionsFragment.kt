@@ -41,7 +41,9 @@ class TransactionsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rvAdapter = TransactionsAdapter {
-            Toast.makeText(requireContext(), "gotonext screent", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it.customerName, Toast.LENGTH_SHORT).show()
+            val action = TransactionsFragmentDirections.actionTransactionsFragmentToTransactionDetailsFragment(it)
+            findNavController().navigate(action)
         }
 
         binding.apply {
@@ -55,7 +57,7 @@ class TransactionsFragment : Fragment() {
                         it.message?.let { it1 -> Utils.showDialog(requireActivity(), message = it1) }
                     }
                     it?.data?.let {
-                        transactionsRv.isVisible = it.isNotEmpty()
+//                        transactionsRv.isVisible = it.isNotEmpty()
                         if(it.isEmpty()) {
                             message.text = "There are no transactions at the moment"
                             message.isVisible = true
