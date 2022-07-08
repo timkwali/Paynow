@@ -28,12 +28,10 @@ class TransferViewModel @Inject constructor(
 ): ViewModel() {
 
     init {
-//        val transferRecipient = TransferRecipient("3061580324", "011", "NGN", "John Doe", "nuban")
-//        createTransferRecipient(transferRecipient)
-//        verifyAccountNumber("3061580324", "011")
+        getBankList()
     }
 
-    private var _bankList: MutableStateFlow<Resource<List<Bank>>?> = MutableStateFlow(null)
+    private var _bankList: MutableStateFlow<Resource<List<Bank>>?> = MutableStateFlow(Resource.Loading())
     val bankList: StateFlow<Resource<List<Bank>>?> get() = _bankList
 
     private var _accountNumberVerification: MutableStateFlow<Resource<VerifyAccountResponse>?> = MutableStateFlow(null)
@@ -48,11 +46,19 @@ class TransferViewModel @Inject constructor(
 
 
 
-    fun getBankList() = viewModelScope.launch {
-        _bankList.value = Resource.Loading()
+    private fun getBankList() = viewModelScope.launch {
+//        _bankList.value = Resource.Loading()
         getBankList.invoke().collect {
             _bankList.value = it
         }
+    }
+
+    fun getBanksListString(): List<String> {
+        val list = mutableListOf<String>()
+        bankList.value?.data?.forEach {
+            list.add("${it.name}|${it.code}")
+        }
+        return list
     }
 
     fun verifyAccountNumber(accountNumber: String, bankCode: String) = viewModelScope.launch {

@@ -4,8 +4,9 @@ import com.timkwali.paynow.common.data.api.model.response.Bank
 import com.timkwali.paynow.common.domain.repository.PayNowRepository
 import com.timkwali.paynow.common.util.Resource
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class GetBankList(
+class GetBankList @Inject constructor(
     private val repository: PayNowRepository
 ) {
 
