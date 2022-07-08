@@ -17,6 +17,7 @@ import com.timkwali.paynow.common.data.api.model.request.Transfer
 import com.timkwali.paynow.common.data.api.model.request.TransferRecipient
 import com.timkwali.paynow.common.util.Constants
 import com.timkwali.paynow.common.util.Resource
+import com.timkwali.paynow.common.util.Utils
 import com.timkwali.paynow.common.util.listbottomsheet.BottomSheetItemClickListener
 import com.timkwali.paynow.common.util.listbottomsheet.ListBottomSheetFragment
 import com.timkwali.paynow.databinding.FragmentTransferBinding
@@ -86,14 +87,12 @@ class TransferFragment : Fragment() {
                     progress.isVisible = it is Resource.Loading
                     when(it) {
                         is Resource.Success -> {
-                            Toast.makeText(
-                                requireContext(),
-                                "Transfer has been queued",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            findNavController().popBackStack()
+                            Utils.showDialog(requireActivity(), "Transfer has been queued", it.message.toString()
+                            ) { findNavController().popBackStack() }
                         }
-                        is Resource.Error -> Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        is Resource.Error -> {
+                            Utils.showDialog(requireActivity(), getString(R.string.app_name), it.message.toString())
+                        }
                     }
                 }
             }
@@ -127,7 +126,6 @@ class TransferFragment : Fragment() {
 
             continueBtn.setOnClickListener {
                 if(isAmountValid(binding.amountTiet.text.toString().toLong())) {
-                    Toast.makeText(requireContext(), "making final", Toast.LENGTH_SHORT).show()
                     top.isEnabled = false
                     val trf = Transfer(
                         amountTiet.text.toString(), narrationTiet.text.toString(),

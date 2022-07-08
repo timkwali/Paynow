@@ -1,41 +1,52 @@
 package com.timkwali.paynow.common.util
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+import com.timkwali.paynow.R
 
 object Utils {
 
-    fun hasInternetConnection(context: Context) : Boolean {
-        val connectivityManager = context.getSystemService(
-            Context.CONNECTIVITY_SERVICE
-        ) as ConnectivityManager
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val activeNetwork = connectivityManager.activeNetwork ?: return false
-            val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
-            return when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-                else -> false
-            }
-        } else {
-            connectivityManager.activeNetworkInfo?.run {
-                return when(type) {
-                    ConnectivityManager.TYPE_WIFI -> true
-                    ConnectivityManager.TYPE_MOBILE -> true
-                    ConnectivityManager.TYPE_ETHERNET -> true
-                    else -> false
-                }
-            }
-        }
-        return false
-    }
+    fun showDialog(
+        activity: Activity,
+        title: String?,
+        message: String,
+        callback: () -> Unit = {}
+    ) {
+        try {
+            var builder: androidx.appcompat.app.AlertDialog.Builder? = null
+            builder =
+                if (activity.parent != null) androidx.appcompat.app.AlertDialog.Builder(activity.parent) else androidx.appcompat.app.AlertDialog.Builder(
+                    activity
+                )
+            val inflater = activity.layoutInflater
+            val view: View = inflater.inflate(R.layout.custom_dialog, null)
+            builder.setView(view)
+            val titleTv = view.findViewById<TextView>(R.id.yesNoDialog_title_tv)
+            val messageTv = view.findViewById<TextView>(R.id.yesNoDialog_message_tv)
+            val yesTv = view.findViewById<TextView>(R.id.yesNoDialog_yes_tv)
+            titleTv.text = title
+            messageTv.text = message
 
-    fun ImageView.loadImage(bitmap: Bitmap){
-        this.setImageBitmap(bitmap)
+            val dialog = builder.create()
+            dialog.show()
+
+            yesTv.setOnClickListener {
+                dialog.dismiss()
+                callback()
+            }
+        } catch (ex: Exception) {
+            Log.e(TAG, ex.toString())
+        }
     }
 }
