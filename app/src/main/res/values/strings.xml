@@ -9,4 +9,5 @@
     <string name="_continue">Continue</string>
     <string name="banks">Banks List</string>
     <string name="amount_ngn">Amount(NGN)</string>
+    <string name="retry">Retry</string>
 </resources>

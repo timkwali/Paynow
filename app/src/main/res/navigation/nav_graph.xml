@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_transfer" />
     <fragment
         android:id="@+id/transactionsFragment"
-        android:name="com.timkwali.paynow.transactions.TransactionsFragment"
+        android:name="com.timkwali.paynow.transactions.presentation.TransactionsFragment"
         android:label="fragment_transactions"
         tools:layout="@layout/fragment_transactions" />
 </navigation>

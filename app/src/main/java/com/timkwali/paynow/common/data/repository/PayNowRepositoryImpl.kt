@@ -4,6 +4,7 @@ import com.timkwali.paynow.common.data.api.PayNowApi
 import com.timkwali.paynow.common.data.api.model.request.Transfer
 import com.timkwali.paynow.common.data.api.model.request.TransferRecipient
 import com.timkwali.paynow.common.data.api.model.response.*
+import com.timkwali.paynow.common.data.api.model.response.transaction.Transactions
 import com.timkwali.paynow.common.domain.repository.PayNowRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -33,5 +34,9 @@ class PayNowRepositoryImpl @Inject constructor(
         transfer: Transfer
     ): Flow<ResponseModel<TransferResponse>> {
         return flowOf(payNowApi.transfer(transfer))
+    }
+
+    override suspend fun getTransactions(): Flow<Transactions> {
+        return flowOf(payNowApi.getTransactions())
     }
 }

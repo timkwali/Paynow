@@ -19,7 +19,7 @@ object Utils {
 
     fun showDialog(
         activity: Activity,
-        title: String?,
+        title: String? = activity.getString(R.string.app_name),
         message: String,
         callback: () -> Unit = {}
     ) {

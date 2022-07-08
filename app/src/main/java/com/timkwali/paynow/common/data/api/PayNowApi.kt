@@ -3,6 +3,7 @@ package com.timkwali.paynow.common.data.api
 import com.timkwali.paynow.common.data.api.model.request.Transfer
 import com.timkwali.paynow.common.data.api.model.request.TransferRecipient
 import com.timkwali.paynow.common.data.api.model.response.*
+import com.timkwali.paynow.common.data.api.model.response.transaction.Transactions
 import com.timkwali.paynow.common.util.Constants
 import retrofit2.http.*
 
@@ -32,4 +33,11 @@ interface PayNowApi {
         @Body transfer: Transfer,
         @Header("Authorization") auth: String = "Bearer ${Constants.SECRET_KEY}"
     ): ResponseModel<TransferResponse>
+
+    @GET("transaction")
+    suspend fun getTransactions(
+        @Query("perPage") perPage: Int = 20,
+        @Query("page") page: Int = 1,
+        @Header("Authorization") auth: String = "Bearer ${Constants.SECRET_KEY}"
+    ): Transactions
 }
